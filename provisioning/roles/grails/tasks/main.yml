@@ -1,0 +1,27 @@
+---
+- name: jdk7 is installed
+  apt: name=openjdk-7-jdk update_cache=yes
+
+# ref: https://groups.google.com/forum/#!topic/ansible-project/xokVwlFsBDE
+- name: check if gvm is installed
+  shell: test -d {{ vagrant_home }}/.gvm && echo "yes" || echo "no"
+  register: is_gvm_installed
+  sudo: no
+
+- name: download gvm
+  when: is_gvm_installed.stdout == "no"
+  get_url: url=http://get.gvmtool.net dest={{ vagrant_home }}/gvm_install.sh
+  sudo: no
+
+- name: install unzip
+  apt: name=unzip update_cache=yes
+
+- name: install gvm
+  when: is_gvm_installed.stdout == "no"
+  command: bash {{ vagrant_home }}/gvm_install.sh
+  sudo: no
+
+- name: install grails
+  shell: bash -lc "yes | gvm install grails" executable=/bin/bash chdir={{ vagrant_home }}
+  sudo: no
+

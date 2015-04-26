@@ -1,0 +1,31 @@
+# Vagrant
+
+.vagrant
+
+# Grails
+
+logs/
+prodDb.h2.db
+prodDb.lock.db
+
+# Gradle
+
+build/
+.gradle/
+.gradletasknamecache
+
+# Eclipse
+
+.project
+.metadata
+bin/**
+.classpath
+.settings/
+
+# IDEA
+
+*.iml
+*.ipr
+*.iws
+.idea/
+
